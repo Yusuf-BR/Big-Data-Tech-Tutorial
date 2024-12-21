@@ -1,0 +1,26 @@
+#!/usr/bin/python3
+import sys
+
+# Initialize variables to store total sales and count of sales per store
+total_sales = {}
+sales_count = {}
+
+for line in sys.stdin:
+    data = line.strip().split("\t")
+    
+    # Ensure that the line has all expected elements
+    if len(data) == 6:
+        date, time, store, item, cost, payment = data
+        
+        # Update total sales and count of sales for each store
+        if store in total_sales:
+            total_sales[store] += float(cost)
+            sales_count[store] += 1
+        else:
+            total_sales[store] = float(cost)
+            sales_count[store] = 1
+
+# Output the results
+for store, total in total_sales.items():
+    count = sales_count[store]
+    print("{0}\t{1}\t{2}".format(store, count, total))
